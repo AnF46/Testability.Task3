@@ -1,10 +1,12 @@
 public class CreditService {
-    public double creditCalc(double creditRate, int periodMonths) {
+    public double creditCalc(double creditRate, int periodMonths, int creditAmountRub) {
 
-        double creditMonthRatePercent =  creditRate/ periodMonths / 100;
-        double annuityRatio = (Math.pow(creditMonthRatePercent * (1 + creditMonthRatePercent),periodMonths) / Math.pow(((1 + creditMonthRatePercent)),periodMonths)-1);
+        double creditMonthRatePercent =  creditRate/ (100 * 12);
+        double annuityRatioFirstPart = (creditMonthRatePercent * Math.pow ((1 + creditMonthRatePercent), periodMonths));
+        double annuityRatioSecond = Math.pow((1 + creditMonthRatePercent),periodMonths)-1;
+        double annuityRatio = annuityRatioFirstPart / annuityRatioSecond;
+        int monthAnnuityPayment = (int) ((double) annuityRatio * creditAmountRub);
 
-        return annuityRatio;
+        return monthAnnuityPayment;
     }
-
 }
